@@ -1,3 +1,4 @@
+// In-memory array to store users
 let users = [
   { id: "1", firstName: "Anshika", lastName: "Agarwal", hobby: "Teaching" }
 ];
