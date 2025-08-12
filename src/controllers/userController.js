@@ -1,49 +1,45 @@
-const User = require('../models/User');
+let users = [
+  { id: "1", firstName: "Anshika", lastName: "Agarwal", hobby: "Teaching" }
+];
 
-exports.getUsers = async (req, res, next) => {
-  try {
-    const users = await User.find();
-    res.status(200).json(users);
-  } catch (err) {
-    next(err);
-  }
+// GET all users
+exports.getUsers = (req, res) => {
+  res.status(200).json(users);
 };
 
-exports.getUser = async (req, res, next) => {
-  try {
-    const user = await User.findById(req.params.id);
-    if (!user) return next({ status: 404, message: 'User not found' });
-    res.status(200).json(user);
-  } catch (err) {
-    next(err);
-  }
+// GET user by ID
+exports.getUserById = (req, res) => {
+  const user = users.find(u => u.id === req.params.id);
+  if (!user) return res.status(404).json({ message: "User not found" });
+  res.status(200).json(user);
 };
 
-exports.createUser = async (req, res, next) => {
-  try {
-    const user = await User.create(req.body);
-    res.status(201).json(user);
-  } catch (err) {
-    next(err);
-  }
+// POST new user
+exports.createUser = (req, res) => {
+  const { firstName, lastName, hobby } = req.body;
+  const newUser = { id: (users.length + 1).toString(), firstName, lastName, hobby };
+  users.push(newUser);
+  res.status(201).json(newUser);
 };
 
-exports.updateUser = async (req, res, next) => {
-  try {
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!user) return next({ status: 404, message: 'User not found' });
-    res.status(200).json(user);
-  } catch (err) {
-    next(err);
-  }
+// PUT update user
+exports.updateUser = (req, res) => {
+  const user = users.find(u => u.id === req.params.id);
+  if (!user) return res.status(404).json({ message: "User not found" });
+
+  const { firstName, lastName, hobby } = req.body;
+  user.firstName = firstName;
+  user.lastName = lastName;
+  user.hobby = hobby;
+  
+  res.status(200).json(user);
 };
 
-exports.deleteUser = async (req, res, next) => {
-  try {
-    const user = await User.findByIdAndDelete(req.params.id);
-    if (!user) return next({ status: 404, message: 'User not found' });
-    res.status(200).json({ message: 'User deleted' });
-  } catch (err) {
-    next(err);
-  }
+// DELETE user
+exports.deleteUser = (req, res) => {
+  const index = users.findIndex(u => u.id === req.params.id);
+  if (index === -1) return res.status(404).json({ message: "User not found" });
+
+  users.splice(index, 1);
+  res.status(200).json({ message: "User deleted successfully" });
 };

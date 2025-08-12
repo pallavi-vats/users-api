@@ -4,15 +4,14 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-  "dev": "nodemon index.js",
-  "seed": "node seed.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "description": "",
+  "description": "A simple RESTful API built with **Node.js** and **Express** that stores user data in-memory using an array.   Supports basic CRUD (Create, Read, Update, Delete) operations with proper HTTP status codes and error handling.",
   "dependencies": {
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
@@ -21,5 +20,13 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pallavi-vats/users-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pallavi-vats/users-api/issues"
+  },
+  "homepage": "https://github.com/pallavi-vats/users-api#readme"
 }
